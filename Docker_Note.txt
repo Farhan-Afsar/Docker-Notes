@@ -1,0 +1,130 @@
+Docker Engine -> Core component which is responsible for creation,running and managing docker containers.
+
+Consist of -> 
+    1. Docker Daemon
+    2. Docker REST API
+    3. Client CLI
+
+Image -> Package that includes everything needed to run a piece of software
+    Base Image
+    Application code
+    Dependency
+    Metadata
+
+    Life cycle   Creation -> Storage -> Distribution -> Execution
+
+Container -> 
+    image -> execute (instance) called container
+
+Dockerfile -> Series of instruction to build a docker Image
+    Base Image
+    Labels
+    run
+    copy
+    env
+    workdir
+    expose
+    cmd
+    volume
+    arg
+
+
+Registry -> 
+    Image -> Storage is called Registry 
+    DockerHub
+
+    Repository
+    Tags
+
+
+
+Dockerfile -> build -> image -> run -> container
+
+image -> push -> Registry -> pull -> image -> run -> container
+
+Code:
+
+docker pull image_name
+docker run image_name
+
+Dockerfile for Demo Flask-site
+
+base image
+    FROM python:3.9
+
+workdir
+    WORKDIR /app
+
+copy
+    COPY . /app
+
+run
+    RUN pip install -r requirement.txt
+
+port
+    EXPOSE 5000
+
+command
+    CMD ["python","./app.py"]
+
+
+docker build -t image_name .
+
+docker run -p 8000(computer):5000(flask) image_name
+
+
+Note
+
+docker run -it ubuntu
+
+docker images
+
+docker run image_name
+docker run -it image_name
+
+docker ps -a
+docker ps
+
+docker start container_name
+docker stop container_name
+
+docker rmi image_name
+docker rm container_name
+
+docker pull image_name:version
+
+docker run -d image_name
+
+-d detached 
+-e environment variable
+--name given_name
+
+docker logs container_name
+docker exec -it container_id /bin/bash or sh
+
+docker uses host os kernel and only virtualize application layer
+VM virtualize both os kernel and application layer
+
+docker network ls
+docker network create name
+
+--network name
+
+docker run -d p 27017:27017 --name mongo --network name -e MONGO_INITDB_ROOT_USERNAME = admin -e MONGO_INITDB_ROOT_PASSWORD = abc mongo
+
+Docker Compose 
+
+docker compose -f name.yaml up -d
+docker compose -f name.yaml down
+
+docker network rm network_name
+
+Docker volume
+
+-v host_path : container_path
+
+docker volume ls
+docker volume create name
+docker volume rm name
+
+docker volume prune
